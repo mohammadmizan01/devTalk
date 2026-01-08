@@ -2,25 +2,22 @@ const express = require("express");
 
 const app = express();
 
+const {adminAuth, userAuth} = require("./middlewares/auth");
 
-app.post("/user",(req,res,next) =>{
-    console.log('first');
-    // res.send({firstName: "Mohammad", lastName:"Mizan"});
-    next();
-},
-(req,res,next) => {
-    console.log('2nd');
-    // res.send({firstName: "none", lastName:"Mizan"});
-    next();
+app.use("/admin",adminAuth);
+app.use("/user",userAuth);
+
+app.get("/admin/fetchAllData",(req,res) => {
+    res.send("send all data");
 });
 
-app.get("/test", (req,res) =>{
-    res.end("test page");
+app.get("/admin/deleteAllData", (req,res) => {
+    res.send("delete all data");
 });
 
-// app.use("/", (req,res) =>{
-//     res.end("response from server response");
-// });
+app.post("/user/sendData", (req,res) => {
+    res.send("Data send Succesfull");
+})
 
 
 app.listen(7000,()=>{
