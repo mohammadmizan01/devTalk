@@ -13,7 +13,21 @@ const validateSignUpData = (req) => {
         throw new Error("Password is not valid");
     }
 }
+const validateEditProfileData = (req) => {
+    const allowedEditFields = ["firstName", "lastName", "skills", "about"];
 
+    const isEditAllowed = Object.keys(req.body).every((field) => allowedEditFields.includes(field));
+
+return isEditAllowed;
+};
+
+const forgotPassword = (req) => {
+    const allowedForgotPassword = ["password"];
+    const isEditAllowed = Object.keys(req.body).every((field) => allowedForgotPassword.includes(field));
+    return isEditAllowed;
+}
 module.exports={
     validateSignUpData,
+    validateEditProfileData,
+    forgotPassword,
 }
